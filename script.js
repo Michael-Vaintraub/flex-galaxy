@@ -13,29 +13,29 @@ const ICONS = ["📦", "⛽", "🔧", "💎", "🌱", "📡", "🧪", "🛠️",
    - items: list of {w, h} box sizes (colors/icons assigned automatically)
    - start: the (wrong) flex settings the board opens with
    - solution: the target flex settings
-   - checkProps: which of the 4 properties are actually verified
-     (only the properties that matter for that stage's visual result) */
+   - checkProps: which of the properties are actually verified */
 const STAGES = [
   {
     title: "Line Up at the Start",
     instruction:
-      "Arrange all the cargo crates in a single row, side by side, flush against the left edge of the board.",
+      "The crates are stacked as plain blocks. Turn the board into a Flex container, then arrange all the cargo crates in a single row, side by side, flush against the left edge of the board.",
     items: [
       { w: 70, h: 70 }, { w: 70, h: 70 }, { w: 70, h: 70 }, { w: 70, h: 70 },
     ],
-    start:    { direction: "column", wrap: "nowrap", justify: "center", align: "center" },
-    solution: { direction: "row",    wrap: "nowrap", justify: "flex-start", align: "center" },
-    checkProps: ["direction", "justify"],
+    start:    { display: "block", direction: "column", wrap: "nowrap", justify: "center", align: "center" },
+    solution: { display: "flex",  direction: "row",    wrap: "nowrap", justify: "flex-start", align: "center" },
+    checkProps: ["display", "direction", "justify"],
   },
   {
     title: "Line Up at the End",
-    instruction: "Arrange the crates in a single row, flush against the right edge of the board.",
+    instruction:
+      "Arrange the crates in a single row, flush against the right edge of the board and centered vertically.",
     items: [
       { w: 70, h: 70 }, { w: 70, h: 70 }, { w: 70, h: 70 }, { w: 70, h: 70 },
     ],
-    start:    { direction: "row", wrap: "nowrap", justify: "flex-start", align: "center" },
-    solution: { direction: "row", wrap: "nowrap", justify: "flex-end",   align: "center" },
-    checkProps: ["direction", "justify"],
+    start:    { display: "flex", direction: "row", wrap: "nowrap", justify: "flex-start", align: "flex-start" },
+    solution: { display: "flex", direction: "row", wrap: "nowrap", justify: "flex-end",   align: "center" },
+    checkProps: ["display", "direction", "justify", "align"],
   },
   {
     title: "Perfect Center",
@@ -43,9 +43,9 @@ const STAGES = [
     items: [
       { w: 70, h: 50 }, { w: 70, h: 90 }, { w: 70, h: 70 },
     ],
-    start:    { direction: "column", wrap: "nowrap", justify: "flex-start", align: "flex-start" },
-    solution: { direction: "row",    wrap: "nowrap", justify: "center",     align: "center" },
-    checkProps: ["direction", "justify", "align"],
+    start:    { display: "flex", direction: "column", wrap: "nowrap", justify: "flex-start", align: "flex-start" },
+    solution: { display: "flex", direction: "row",    wrap: "nowrap", justify: "center",     align: "center" },
+    checkProps: ["display", "direction", "justify", "align"],
   },
   {
     title: "Balanced Column",
@@ -54,9 +54,9 @@ const STAGES = [
     items: [
       { w: 60, h: 60 }, { w: 100, h: 60 }, { w: 80, h: 60 }, { w: 120, h: 60 },
     ],
-    start:    { direction: "row",    wrap: "nowrap", justify: "flex-start",    align: "flex-start" },
-    solution: { direction: "column", wrap: "nowrap", justify: "space-between", align: "center" },
-    checkProps: ["direction", "justify", "align"],
+    start:    { display: "flex", direction: "row",    wrap: "nowrap", justify: "flex-start",    align: "flex-start" },
+    solution: { display: "flex", direction: "column", wrap: "nowrap", justify: "space-between", align: "center" },
+    checkProps: ["display", "direction", "justify", "align"],
   },
   {
     title: "Spread Along the Bottom",
@@ -65,18 +65,21 @@ const STAGES = [
     items: [
       { w: 60, h: 40 }, { w: 60, h: 70 }, { w: 60, h: 50 }, { w: 60, h: 90 }, { w: 60, h: 60 },
     ],
-    start:    { direction: "row", wrap: "nowrap", justify: "center",        align: "center" },
-    solution: { direction: "row", wrap: "nowrap", justify: "space-between", align: "flex-end" },
-    checkProps: ["justify", "align"],
+    start:    { display: "flex", direction: "row", wrap: "nowrap", justify: "center",        align: "center" },
+    solution: { display: "flex", direction: "row", wrap: "nowrap", justify: "space-between", align: "flex-end" },
+    checkProps: ["display", "direction", "justify", "align"],
   },
   {
     title: "The Hold Got Too Small!",
     instruction:
-      "There are too many crates for a single row. Make the overflow items wrap onto a new row, center each row, and keep everything flush against the top of the board.",
-    items: new Array(10).fill(0).map(() => ({ w: 80, h: 70 })),
-    start:    { direction: "row", wrap: "nowrap", justify: "flex-start", align: "center" },
-    solution: { direction: "row", wrap: "wrap",   justify: "center",     align: "flex-start" },
-    checkProps: ["direction", "wrap", "justify", "align"],
+      "There are too many crates for a single row. Make the overflow crates wrap onto a new row, center each row horizontally, and hang every crate from the top of its own row.",
+    items: [
+      { w: 80, h: 60 }, { w: 80, h: 85 }, { w: 80, h: 70 }, { w: 80, h: 95 }, { w: 80, h: 55 },
+      { w: 80, h: 90 }, { w: 80, h: 65 }, { w: 80, h: 80 }, { w: 80, h: 75 }, { w: 80, h: 60 },
+    ],
+    start:    { display: "flex", direction: "row", wrap: "nowrap", justify: "flex-start", align: "center" },
+    solution: { display: "flex", direction: "row", wrap: "wrap",   justify: "center",     align: "flex-start" },
+    checkProps: ["display", "direction", "wrap", "justify", "align"],
   },
   {
     title: "Vertical Shelf",
@@ -85,9 +88,9 @@ const STAGES = [
     items: [
       { w: 50, h: 55 }, { w: 100, h: 55 }, { w: 70, h: 55 }, { w: 130, h: 55 },
     ],
-    start:    { direction: "row",    wrap: "nowrap", justify: "center",     align: "center" },
-    solution: { direction: "column", wrap: "nowrap", justify: "flex-start", align: "flex-end" },
-    checkProps: ["direction", "justify", "align"],
+    start:    { display: "flex", direction: "row",    wrap: "nowrap", justify: "center",     align: "center" },
+    solution: { display: "flex", direction: "column", wrap: "nowrap", justify: "flex-start", align: "flex-end" },
+    checkProps: ["display", "direction", "justify", "align"],
   },
   {
     title: "Final Challenge: Full Warehouse",
@@ -97,9 +100,9 @@ const STAGES = [
       { w: 90, h: 60 }, { w: 90, h: 80 }, { w: 90, h: 50 }, { w: 90, h: 90 },
       { w: 90, h: 70 }, { w: 90, h: 60 }, { w: 90, h: 85 }, { w: 90, h: 55 }, { w: 90, h: 75 },
     ],
-    start:    { direction: "column", wrap: "nowrap", justify: "flex-start", align: "flex-start" },
-    solution: { direction: "row",    wrap: "wrap",   justify: "space-around", align: "center" },
-    checkProps: ["direction", "wrap", "justify", "align"],
+    start:    { display: "flex", direction: "column", wrap: "nowrap", justify: "flex-start", align: "flex-start" },
+    solution: { display: "flex", direction: "row",    wrap: "wrap",   justify: "space-around", align: "center" },
+    checkProps: ["display", "direction", "wrap", "justify", "align"],
   },
 ];
 
@@ -125,6 +128,7 @@ const el = {
   attemptsCounter: document.getElementById("attemptsCounter"),
   scoreCounter: document.getElementById("scoreCounter"),
   message: document.getElementById("message"),
+  ctrlDisplay: document.getElementById("ctrl-display"),
   ctrlDirection: document.getElementById("ctrl-direction"),
   ctrlWrap: document.getElementById("ctrl-wrap"),
   ctrlJustify: document.getElementById("ctrl-justify"),
@@ -199,6 +203,7 @@ function renderBoardItems(stage) {
 }
 
 function applyBoardStyle() {
+  el.board.style.display = game.current.display;
   el.board.style.flexDirection = game.current.direction;
   el.board.style.flexWrap = game.current.wrap;
   el.board.style.justifyContent = game.current.justify;
@@ -206,10 +211,12 @@ function applyBoardStyle() {
 }
 
 function syncControls() {
+  el.ctrlDisplay.value = game.current.display;
   el.ctrlDirection.value = game.current.direction;
   el.ctrlWrap.value = game.current.wrap;
   el.ctrlJustify.value = game.current.justify;
   el.ctrlAlign.value = game.current.align;
+  syncControlsEnabled();
 }
 
 function updateHeader() {
@@ -307,24 +314,39 @@ function goNext() {
 }
 
 /* ---------- Board scaling (keeps board's real px size fixed) ---------- */
+const BOARD_W = 640;
+const BOARD_H = 420;
+
 function fitBoardToViewport() {
   const wrapper = el.board.parentElement;
-  const available = wrapper.clientWidth - 8;
-  const boardWidth = el.board.offsetWidth || 640;
-  const scale = Math.min(1, available / boardWidth);
+  const style = getComputedStyle(wrapper);
+  const padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+  const available = wrapper.clientWidth - padding;
+
+  const scale = Math.min(1, available / BOARD_W);
   el.board.style.transform = scale < 1 ? "scale(" + scale + ")" : "none";
-  wrapper.style.height = (el.board.offsetHeight || 420) * scale + "px";
+  wrapper.style.height = BOARD_H * scale + padding + "px";
 }
 
 /* ---------- Event wiring ---------- */
+function syncControlsEnabled() {
+  const isFlex = game.current.display === "flex";
+  [el.ctrlDirection, el.ctrlWrap, el.ctrlJustify, el.ctrlAlign].forEach((ctrl) => {
+    ctrl.disabled = !isFlex;
+  });
+}
+
 function onControlChange() {
+  game.current.display = el.ctrlDisplay.value;
   game.current.direction = el.ctrlDirection.value;
   game.current.wrap = el.ctrlWrap.value;
   game.current.justify = el.ctrlJustify.value;
   game.current.align = el.ctrlAlign.value;
   applyBoardStyle();
+  syncControlsEnabled();
 }
 
+el.ctrlDisplay.addEventListener("change", onControlChange);
 el.ctrlDirection.addEventListener("change", onControlChange);
 el.ctrlWrap.addEventListener("change", onControlChange);
 el.ctrlJustify.addEventListener("change", onControlChange);

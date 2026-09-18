@@ -186,8 +186,8 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  overflow-x: auto;
-  overflow-y: hidden;
+  align-items: flex-start;
+  overflow: hidden;
   padding: 4px;
 }
 
@@ -210,9 +210,8 @@ body {
   border-radius: 16px;
   padding: 14px;
   transform-origin: top center;
-
-  /* default flex context — actual values are set inline by JS */
-  display: flex;
+  gap: 10px;
+  display: block;
 }
 
 /* ---- items ---- */
@@ -259,8 +258,8 @@ body {
 
 /* ---- controls ---- */
 .controls-panel {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   background: var(--bg-panel);
   border: 1px solid var(--border);
@@ -272,6 +271,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1 1 140px;
+  min-width: 0;
 }
 
 .control label {
@@ -341,7 +342,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .controls-panel {
-    grid-template-columns: repeat(2, 1fr);
+  .control {
+    flex: 1 1 calc(50% - 10px);
   }
 }
