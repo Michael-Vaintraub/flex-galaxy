@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flex Galaxy — a Flexbox learning game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1><span class="title-icon">🚀</span> Flex Galaxy</h1>
+  <p class="subtitle">Help the spaceship crew sort the cargo hold using Flexbox</p>
+</header>
+
+<main class="game-wrap">
+
+  <!-- Progress / stage indicator -->
+  <section class="progress-panel" aria-label="Game progress">
+    <div class="stage-count" id="stageCount">Stage 1 of 8</div>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <!-- Instruction -->
+  <section class="instruction-panel">
+    <h2 id="stageTitle">Stage title</h2>
+    <p id="instructionText">The stage instruction will appear here.</p>
+    <div class="meta-row">
+      <span id="attemptsCounter">Attempts this stage: 0</span>
+      <span id="scoreCounter">Score: 0</span>
+    </div>
+  </section>
+
+  <!-- Message banner -->
+  <div id="message" class="message" role="status" aria-live="polite"></div>
+
+  <!-- Board -->
+  <section class="board-wrapper">
+    <div id="board" class="board" dir="ltr"></div>
+  </section>
+
+  <!-- Controls -->
+  <section class="controls-panel" aria-label="Flexbox controls">
+    <div class="control">
+      <label for="ctrl-direction">flex-direction</label>
+      <select id="ctrl-direction">
+        <option value="row">row</option>
+        <option value="column">column</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="ctrl-wrap">flex-wrap</label>
+      <select id="ctrl-wrap">
+        <option value="nowrap">nowrap</option>
+        <option value="wrap">wrap</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="ctrl-justify">justify-content</label>
+      <select id="ctrl-justify">
+        <option value="flex-start">flex-start</option>
+        <option value="flex-end">flex-end</option>
+        <option value="center">center</option>
+        <option value="space-between">space-between</option>
+        <option value="space-around">space-around</option>
+        <option value="space-evenly">space-evenly</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="ctrl-align">align-items</label>
+      <select id="ctrl-align">
+        <option value="flex-start">flex-start</option>
+        <option value="flex-end">flex-end</option>
+        <option value="center">center</option>
+        <option value="stretch">stretch</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="actions-panel">
+    <button id="btnCheck" class="btn btn-primary">Check solution ✅</button>
+    <button id="btnReset" class="btn btn-secondary">Reset stage 🔄</button>
+    <button id="btnNext" class="btn btn-success" disabled>Next stage ➡️</button>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Built with pure HTML, CSS and JavaScript — no external libraries.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
